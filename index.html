@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swasthall — Healthy for All</title>
+  <meta name="description" content="Nepal's family healthcare super-app. Video consultations, emergency coordination, lab booking and more. Request beta access." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── RESET & BASE ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo:     #6366F1;
+      --indigo-dark:#4338CA;
+      --indigo-deep:#312E81;
+      --indigo-glow:rgba(99,102,241,0.18);
+      --light:      #EEF2FF;
+      --bg:         #F8FAFC;
+      --white:      #FFFFFF;
+      --text:       #1F2937;
+      --muted:      #6B7280;
+      --border:     rgba(99,102,241,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Sora', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND MESH ─────────────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(99,102,241,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(99,102,241,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 50% 50%, rgba(238,242,255,0.8) 0%, transparent 80%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAVBAR ──────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(248,250,252,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--indigo);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .nav-s {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: white;
+      line-height: 1;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav-heartbeat {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 3;
+    }
+
+    .nav-brand {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--indigo);
+      background: var(--light);
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── HERO ────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 24px 80px;
+      text-align: center;
+    }
+
+    .hero-inner {
+      max-width: 680px;
+      width: 100%;
+    }
+
+    /* ── ANIMATED LOGO MARK ──────────────────────────────────────────── */
+    .logo-mark {
+      width: 100px;
+      height: 100px;
+      background: var(--indigo);
+      border-radius: 28px;
+      margin: 0 auto 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 0 rgba(99,102,241,0.4),
+        0 20px 60px rgba(99,102,241,0.3);
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.4), 0 20px 60px rgba(99,102,241,0.3); }
+      50%       { box-shadow: 0 0 0 12px rgba(99,102,241,0), 0 20px 60px rgba(99,102,241,0.3); }
+    }
+
+    .logo-s {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 700;
+      font-size: 72px;
+      color: white;
+      line-height: 1;
+      position: relative;
+      z-index: 2;
+      animation: sReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+    }
+
+    @keyframes sReveal {
+      from { opacity: 0; transform: translateY(-20px) scale(0.8); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* SVG heartbeat overlay on logo */
+    .logo-ecg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      z-index: 3;
+    }
+
+    .ecg-line {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: drawEcg 1.2s ease-in-out 0.5s forwards;
+    }
+
+    @keyframes drawEcg {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ── HEADLINE ────────────────────────────────────────────────────── */
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--indigo);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.8s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      color: var(--text);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 1s forwards;
+    }
+
+    .hero-title span {
+      color: var(--indigo);
+      position: relative;
+    }
+
+    .hero-title span::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--indigo), transparent);
+      border-radius: 2px;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 1.1s forwards;
+    }
+
+    /* ── FEATURE PILLS ───────────────────────────────────────────────── */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 1.2s forwards;
+    }
+
+    .pill {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--indigo);
+      background: var(--light);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* ── BETA FORM ───────────────────────────────────────────────────── */
+    .beta-card {
+      background: white;
+      border-radius: 24px;
+      padding: 36px 32px;
+      box-shadow:
+        0 1px 0 rgba(99,102,241,0.08),
+        0 8px 32px rgba(99,102,241,0.08),
+        0 32px 64px rgba(0,0,0,0.04);
+      border: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.6s ease 1.3s forwards;
+    }
+
+    .beta-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .beta-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.3px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--bg);
+      border: 1.5px solid #E5E7EB;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--indigo);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+    }
+
+    input::placeholder { color: #9CA3AF; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      background: var(--indigo);
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover {
+      background: var(--indigo-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.35);
+    }
+
+    .submit-btn:active { transform: translateY(0); }
+
+    .submit-btn.loading {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .submit-btn .btn-text { transition: opacity 0.2s; }
+    .submit-btn .btn-spinner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .submit-btn.loading .btn-text { opacity: 0; }
+    .submit-btn.loading .btn-spinner { opacity: 1; }
+
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── SUCCESS STATE ───────────────────────────────────────────────── */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .success-state.show { display: block; }
+    .beta-card.submitted .form-content { display: none; }
+    .beta-card.submitted .success-state { display: block; }
+
+    .success-icon {
+      width: 64px; height: 64px;
+      background: #ECFDF5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 28px;
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    .success-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .success-sub {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .beta-id {
+      margin-top: 16px;
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--indigo);
+      background: var(--light);
+      padding: 8px 16px;
+      border-radius: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* ── STATS ROW ───────────────────────────────────────────────────── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.6s ease 1.5s forwards;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-number {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--indigo);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ── ANIMATIONS ──────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MOBILE ──────────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 100px 16px 60px; }
+      .form-row { grid-template-columns: 1fr; }
+      .beta-card { padding: 28px 20px; }
+      .stats { gap: 24px; }
+      .stat-number { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ──────────────────────────────────────────────────────── -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">
+        <span class="nav-s">S</span>
+        <svg class="nav-heartbeat" viewBox="0 0 36 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 2 H10 L12 0.5 L14 3.5 L16 1 L17 2 H36"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+            stroke-dasharray="60" stroke-dashoffset="60"
+            style="animation: drawEcg 1s ease 0.3s forwards;">
+          </path>
+        </svg>
+      </div>
+      <span class="nav-brand">Swasthall</span>
+    </a>
+    <span class="nav-badge">BETA COMING SOON</span>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-inner">
+
+      <!-- Logo mark -->
+      <div class="logo-mark">
+        <span class="logo-s">S</span>
+        <svg class="logo-ecg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="ecg-line"
+            d="M0 52 H30 L34 44 L38 58 L44 36 L50 64 L54 48 L57 52 H72 L76 49 L80 52 H100"
+            stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <p class="hero-eyebrow">Nepal's Healthcare Super-App</p>
+
+      <h1 class="hero-title">
+        Your family's health,<br/>
+        <span>always with you</span>
+      </h1>
+
+      <p class="hero-sub">
+        Video consultations, emergency coordination, lab booking,
+        medical vault and more — built so your family is never alone
+        in a health crisis, wherever you are.
+      </p>
+
+      <!-- Feature pills -->
+      <div class="pills">
+        <span class="pill">🎥 Video Consultation</span>
+        <span class="pill">🚑 Emergency Coordination</span>
+        <span class="pill">🧪 Lab Booking</span>
+        <span class="pill">💊 Medical Vault</span>
+        <span class="pill">🤖 AI Symptom Check</span>
+        <span class="pill">👨‍👩‍👧 Family Health Pass</span>
+        <span class="pill">🏥 Hospital Queue</span>
+        <span class="pill">📋 Prescription Tracking</span>
+      </div>
+
+      <!-- Beta access card -->
+      <div class="beta-card" id="betaCard">
+
+        <div class="form-content">
+          <p class="beta-title">Request Beta Access</p>
+          <p class="beta-sub">Be among the first families to use Swasthall. Limited spots available.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" placeholder="Raunak Shah" autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+977 98XXXXXXXX" autocomplete="tel" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="role">I am a</label>
+              <select id="role">
+                <option value="">Select role...</option>
+                <option value="patient">Patient / Family Member</option>
+                <option value="doctor">Doctor</option>
+                <option value="nurse">Nurse</option>
+                <option value="pharmacist">Pharmacist</option>
+                <option value="hospital_admin">Hospital Admin</option>
+                <option value="lab_technician">Lab Technician</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full">
+              <label for="city">City / District</label>
+              <input type="text" id="city" placeholder="Kathmandu" />
+            </div>
+          </div>
+
+          <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+            <span class="btn-text">Request Beta Access →</span>
+            <span class="btn-spinner"><span class="spinner"></span></span>
+          </button>
+
+          <p style="font-size:12px; color: var(--muted); margin-top: 12px; text-align:center;">
+            We'll send your beta access code via WhatsApp or email within 48 hours.
+          </p>
+        </div>
+
+        <div class="success-state" id="successState">
+          <div class="success-icon">✓</div>
+          <p class="success-title">You're on the list!</p>
+          <p class="success-sub">
+            Thank you for your interest in Swasthall.<br/>
+            We'll send your beta access code within 48 hours.
+          </p>
+          <span class="beta-id" id="betaId">BETA-000000</span>
+          <p style="font-size:12px; color: var(--muted); margin-top: 16px;">
+            Save this code — you'll need it to activate your account.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number" id="countApplications">0</div>
+          <div class="stat-label">Beta Applications</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">7</div>
+          <div class="stat-label">User Roles</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Countries Planned</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">NPR 0</div>
+          <div class="stat-label">Beta Access Cost</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────────────── -->
+  <footer>
+    <p>
+      © 2026 Swasthall. Built with ❤️ in Nepal. 
+      <a href="mailto:raunakshah1244@gmail.com">Contact</a> · 
+      <a href="#">Privacy Policy</a>
+    </p>
+  </footer>
+
+  <script>
+    // ── COUNTER ANIMATION ──────────────────────────────────────────────
+    function animateCounter(el, target, duration) {
+      let start = 0;
+      const step = target / (duration / 16);
+      const timer = setInterval(() => {
+        start += step;
+        if (start >= target) { el.textContent = target; clearInterval(timer); return; }
+        el.textContent = Math.floor(start);
+      }, 16);
+    }
+
+    setTimeout(() => {
+      animateCounter(document.getElementById('countApplications'), 47, 1200);
+    }, 1600);
+
+    // ── FORM SUBMISSION ────────────────────────────────────────────────
+    function handleSubmit() {
+      const name  = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const role  = document.getElementById('role').value;
+      const city  = document.getElementById('city').value.trim();
+
+      // Basic validation
+      if (!name)  { shake('fullName'); return; }
+      if (!phone && !email) { shake('phone'); shake('email'); return; }
+      if (!role)  { shake('role'); return; }
+
+      // Loading state
+      const btn = document.getElementById('submitBtn');
+      btn.classList.add('loading');
+
+      // Simulate API call — replace with real Supabase insert later
+      setTimeout(() => {
+        const betaId = 'BETA-' + Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('betaId').textContent = betaId;
+        document.getElementById('betaCard').classList.add('submitted');
+
+        // Update counter
+        const counter = document.getElementById('countApplications');
+        const current = parseInt(counter.textContent) + 1;
+        counter.textContent = current;
+
+        // Log to console for now (replace with Supabase later)
+        console.log('Beta signup:', { name, phone, email, role, city, betaId });
+      }, 1400);
+    }
+
+    function shake(id) {
+      const el = document.getElementById(id);
+      el.style.borderColor = '#EF4444';
+      el.style.animation = 'shake 0.4s ease';
+      setTimeout(() => {
+        el.style.borderColor = '';
+        el.style.animation = '';
+      }, 800);
+    }
+
+    // Enter key support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleSubmit();
+    });
+  </script>
+
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%       { transform: translateX(-6px); }
+      40%       { transform: translateX(6px); }
+      60%       { transform: translateX(-4px); }
+      80%       { transform: translateX(4px); }
+    }
+  </style>
+
+</body>
+</html>
