@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Swasthall — Healthy for All</title>
+  
+  <link rel="icon" type="image/png" href="https://i.ibb.co/v66m9X3/swasthall-favicon.png">
+  
   <meta name="description" content="Nepal's family healthcare super-app. Video consultations, emergency coordination, lab booking and more. Request beta access." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -277,6 +280,10 @@
       border: 1px solid var(--border);
       opacity: 0;
       animation: fadeUp 0.6s ease 1.3s forwards;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .beta-title {
@@ -315,6 +322,7 @@
       font-weight: 600;
       color: var(--text);
       letter-spacing: 0.3px;
+      text-align: left;
     }
 
     input, select {
@@ -392,27 +400,33 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── SUCCESS STATE ───────────────────────────────────────────────── */
+    /* ── SUCCESS STATE / THANK YOU PAGE ──────────────────────────────── */
     .success-state {
       display: none;
       text-align: center;
-      padding: 20px 0;
+      padding: 40px 0;
+      animation: fadeIn 0.5s ease forwards;
     }
 
-    .success-state.show { display: block; }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
     .beta-card.submitted .form-content-wrapper { display: none; }
     .beta-card.submitted .success-state { display: block; }
 
     .success-icon {
-      width: 64px; height: 64px;
+      width: 80px; height: 80px;
       background: #ECFDF5;
+      color: #10B981;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 16px;
-      font-size: 28px;
-      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      margin: 0 auto 24px;
+      font-size: 36px;
+      animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     @keyframes popIn {
@@ -422,28 +436,43 @@
 
     .success-title {
       font-family: 'Clash Display', sans-serif;
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 700;
       color: var(--text);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     .success-sub {
-      font-size: 14px;
+      font-size: 16px;
       color: var(--muted);
       line-height: 1.6;
+      max-width: 300px;
+      margin: 0 auto 24px;
+    }
+
+    .beta-id-wrapper {
+        background: var(--light);
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px dashed var(--indigo);
+        display: inline-block;
+    }
+
+    .beta-id-label {
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--indigo);
+        font-weight: 700;
+        margin-bottom: 4px;
     }
 
     .beta-id {
-      margin-top: 16px;
-      display: inline-block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--indigo);
-      background: var(--light);
-      padding: 8px 16px;
-      border-radius: 8px;
-      letter-spacing: 1px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--indigo-dark);
+      letter-spacing: 2px;
     }
 
     /* ── STATS ROW ───────────────────────────────────────────────────── */
@@ -487,6 +516,14 @@
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
     }
 
     @media (max-width: 600px) {
@@ -586,9 +623,12 @@
 
         <div class="success-state" id="successState">
           <div class="success-icon">✓</div>
-          <p class="success-title">You're on the list!</p>
-          <p class="success-sub">Thank you for your interest in Swasthall.</p>
-          <span class="beta-id" id="betaIdDisplay">BETA-000000</span>
+          <p class="success-title">Thank You!</p>
+          <p class="success-sub">You've successfully joined the waitlist. We will reach out to you shortly.</p>
+          <div class="beta-id-wrapper">
+              <span class="beta-id-label">Your Queue Position</span>
+              <span class="beta-id" id="betaIdDisplay">BETA-000000</span>
+          </div>
         </div>
       </div>
 
@@ -608,7 +648,6 @@
   </footer>
 
   <script>
-    // 1. ADD YOUR FORMSPREE ID HERE
     const FORMSPREE_ID = "mgoljbbq"; 
 
     function animateCounter(el, target, duration) {
@@ -625,22 +664,30 @@
       animateCounter(document.getElementById('countApplications'), 48, 1200);
     }, 1600);
 
+    function validateEmail(email) {
+        return String(email)
+            .toLowerCase()
+            .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    }
+
     async function handleSubmit() {
       const name = document.getElementById('fullName').value.trim();
       const email = document.getElementById('email').value.trim();
       const role = document.getElementById('role').value;
       const btn = document.getElementById('submitBtn');
 
-      // Validation
-      if (!name) { shake('fullName'); return; }
-      if (!email) { shake('email'); return; }
-      if (!role) { shake('role'); return; }
+      // Enhanced Validation
+      let hasError = false;
+      if (!name) { shake('fullName'); hasError = true; }
+      if (!email || !validateEmail(email)) { shake('email'); hasError = true; }
+      if (!role) { shake('role'); hasError = true; }
+
+      if (hasError) return;
 
       btn.classList.add('loading');
 
       const betaId = 'BETA-' + Math.floor(100000 + Math.random() * 900000);
       
-      // Prepare data for Formspree
       const formData = new FormData(document.getElementById('betaForm'));
       formData.append("Generated_Beta_ID", betaId);
 
@@ -657,10 +704,15 @@
           const counter = document.getElementById('countApplications');
           counter.textContent = parseInt(counter.textContent) + 1;
         } else {
-          alert("Submission failed. Please check your Formspree ID.");
+          const data = await response.json();
+          if (data.errors) {
+              alert(data.errors.map(error => error.message).join(", "));
+          } else {
+              alert("Submission failed. Please check your Formspree account status.");
+          }
         }
       } catch (error) {
-        alert("Network error. Please try again.");
+        alert("Network error. This usually happens if the email format is wrong or there is no internet.");
       } finally {
         btn.classList.remove('loading');
       }
@@ -673,15 +725,5 @@
       setTimeout(() => { el.style.borderColor = ''; el.style.animation = ''; }, 800);
     }
   </script>
-
-  <style>
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-6px); }
-      40% { transform: translateX(6px); }
-      60% { transform: translateX(-4px); }
-      80% { transform: translateX(4px); }
-    }
-  </style>
 </body>
 </html>
