@@ -14,16 +14,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --indigo:     #6366F1;
-      --indigo-dark:#4338CA;
-      --indigo-deep:#312E81;
-      --indigo-glow:rgba(99,102,241,0.18);
-      --light:      #EEF2FF;
-      --bg:         #F8FAFC;
-      --white:      #FFFFFF;
-      --text:       #1F2937;
-      --muted:      #6B7280;
-      --border:     rgba(99,102,241,0.15);
+      --indigo:      #6366F1;
+      --indigo-dark: #4338CA;
+      --indigo-deep: #312E81;
+      --indigo-glow: rgba(99,102,241,0.18);
+      --light:       #EEF2FF;
+      --bg:          #F8FAFC;
+      --white:       #FFFFFF;
+      --text:        #1F2937;
+      --muted:       #6B7280;
+      --border:      rgba(99,102,241,0.15);
     }
 
     html { scroll-behavior: smooth; }
@@ -177,7 +177,6 @@
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* SVG heartbeat overlay on logo */
     .logo-ecg {
       position: absolute;
       width: 100%;
@@ -401,7 +400,7 @@
     }
 
     .success-state.show { display: block; }
-    .beta-card.submitted .form-content { display: none; }
+    .beta-card.submitted .form-content-wrapper { display: none; }
     .beta-card.submitted .success-state { display: block; }
 
     .success-icon {
@@ -474,7 +473,6 @@
       margin-top: 2px;
     }
 
-    /* ── FOOTER ──────────────────────────────────────────────────────── */
     footer {
       position: relative;
       z-index: 1;
@@ -483,24 +481,14 @@
       border-top: 1px solid var(--border);
     }
 
-    footer p {
-      font-size: 13px;
-      color: var(--muted);
-    }
+    footer p { font-size: 13px; color: var(--muted); }
+    footer a { color: var(--indigo); text-decoration: none; font-weight: 500; }
 
-    footer a {
-      color: var(--indigo);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    /* ── ANIMATIONS ──────────────────────────────────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── MOBILE ──────────────────────────────────────────────────────── */
     @media (max-width: 600px) {
       nav { padding: 16px 20px; }
       .hero { padding: 100px 16px 60px; }
@@ -513,17 +501,12 @@
 </head>
 <body>
 
-  <!-- ── NAVBAR ──────────────────────────────────────────────────────── -->
   <nav>
     <a href="/" class="nav-logo">
       <div class="nav-logo-icon">
         <span class="nav-s">S</span>
         <svg class="nav-heartbeat" viewBox="0 0 36 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 2 H10 L12 0.5 L14 3.5 L16 1 L17 2 H36"
-            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-            stroke-dasharray="60" stroke-dashoffset="60"
-            style="animation: drawEcg 1s ease 0.3s forwards;">
-          </path>
+          <path d="M0 2 H10 L12 0.5 L14 3.5 L16 1 L17 2 H36" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
       <span class="nav-brand">Swasthall</span>
@@ -531,149 +514,103 @@
     <span class="nav-badge">BETA COMING SOON</span>
   </nav>
 
-  <!-- ── HERO ────────────────────────────────────────────────────────── -->
   <section class="hero">
     <div class="hero-inner">
-
-      <!-- Logo mark -->
       <div class="logo-mark">
         <span class="logo-s">S</span>
         <svg class="logo-ecg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="ecg-line"
-            d="M0 52 H30 L34 44 L38 58 L44 36 L50 64 L54 48 L57 52 H72 L76 49 L80 52 H100"
-            stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path class="ecg-line" d="M0 52 H30 L34 44 L38 58 L44 36 L50 64 L54 48 L57 52 H72 L76 49 L80 52 H100" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
 
       <p class="hero-eyebrow">Nepal's Healthcare Super-App</p>
+      <h1 class="hero-title">Your family's health,<br/><span>always with you</span></h1>
+      <p class="hero-sub">Video consultations, emergency coordination, lab booking, medical vault and more.</p>
 
-      <h1 class="hero-title">
-        Your family's health,<br/>
-        <span>always with you</span>
-      </h1>
-
-      <p class="hero-sub">
-        Video consultations, emergency coordination, lab booking,
-        medical vault and more — built so your family is never alone
-        in a health crisis, wherever you are.
-      </p>
-
-      <!-- Feature pills -->
       <div class="pills">
         <span class="pill">🎥 Video Consultation</span>
         <span class="pill">🚑 Emergency Coordination</span>
         <span class="pill">🧪 Lab Booking</span>
         <span class="pill">💊 Medical Vault</span>
-        <span class="pill">🤖 AI Symptom Check</span>
-        <span class="pill">👨‍👩‍👧 Family Health Pass</span>
-        <span class="pill">🏥 Hospital Queue</span>
-        <span class="pill">📋 Prescription Tracking</span>
       </div>
 
-      <!-- Beta access card -->
       <div class="beta-card" id="betaCard">
-
-        <div class="form-content">
+        <div class="form-content-wrapper">
           <p class="beta-title">Request Beta Access</p>
-          <p class="beta-sub">Be among the first families to use Swasthall. Limited spots available.</p>
+          <p class="beta-sub">Be among the first families to use Swasthall.</p>
+          
+          <form id="betaForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" id="fullName" placeholder="Raunak Shah" required />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" name="phone" id="phone" placeholder="+977 98XXXXXXXX" />
+              </div>
+            </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fullName">Full Name</label>
-              <input type="text" id="fullName" placeholder="Raunak Shah" autocomplete="name" />
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" id="email" placeholder="you@example.com" required />
+              </div>
+              <div class="form-group">
+                <label>I am a</label>
+                <select name="role" id="role" required>
+                  <option value="">Select role...</option>
+                  <option value="patient">Patient / Family Member</option>
+                  <option value="doctor">Doctor</option>
+                  <option value="hospital_admin">Hospital Admin</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" placeholder="+977 98XXXXXXXX" autocomplete="tel" />
-            </div>
-          </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+            <div class="form-group full" style="margin-bottom: 12px; text-align: left;">
+              <label>City / District</label>
+              <input type="text" name="city" id="city" placeholder="Kathmandu" />
             </div>
-            <div class="form-group">
-              <label for="role">I am a</label>
-              <select id="role">
-                <option value="">Select role...</option>
-                <option value="patient">Patient / Family Member</option>
-                <option value="doctor">Doctor</option>
-                <option value="nurse">Nurse</option>
-                <option value="pharmacist">Pharmacist</option>
-                <option value="hospital_admin">Hospital Admin</option>
-                <option value="lab_technician">Lab Technician</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-          </div>
 
-          <div class="form-row">
-            <div class="form-group full">
-              <label for="city">City / District</label>
-              <input type="text" id="city" placeholder="Kathmandu" />
-            </div>
-          </div>
-
-          <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
-            <span class="btn-text">Request Beta Access →</span>
-            <span class="btn-spinner"><span class="spinner"></span></span>
-          </button>
+            <button type="button" class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+              <span class="btn-text">Request Beta Access →</span>
+              <span class="btn-spinner"><span class="spinner"></span></span>
+            </button>
+          </form>
 
           <p style="font-size:12px; color: var(--muted); margin-top: 12px; text-align:center;">
-            We'll send your beta access code via WhatsApp or email within 48 hours.
+            We'll send your beta code via WhatsApp/Email within 48h.
           </p>
         </div>
 
         <div class="success-state" id="successState">
           <div class="success-icon">✓</div>
           <p class="success-title">You're on the list!</p>
-          <p class="success-sub">
-            Thank you for your interest in Swasthall.<br/>
-            We'll send your beta access code within 48 hours.
-          </p>
-          <span class="beta-id" id="betaId">BETA-000000</span>
-          <p style="font-size:12px; color: var(--muted); margin-top: 16px;">
-            Save this code — you'll need it to activate your account.
-          </p>
+          <p class="success-sub">Thank you for your interest in Swasthall.</p>
+          <span class="beta-id" id="betaIdDisplay">BETA-000000</span>
         </div>
-
       </div>
 
-      <!-- Stats -->
       <div class="stats">
         <div class="stat">
-          <div class="stat-number" id="countApplications">0</div>
+          <div class="stat-number" id="countApplications">47</div>
           <div class="stat-label">Beta Applications</div>
         </div>
-        <div class="stat">
-          <div class="stat-number">7</div>
-          <div class="stat-label">User Roles</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">4</div>
-          <div class="stat-label">Countries Planned</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">NPR 0</div>
-          <div class="stat-label">Beta Access Cost</div>
-        </div>
+        <div class="stat"><div class="stat-number">7</div><div class="stat-label">User Roles</div></div>
+        <div class="stat"><div class="stat-number">NPR 0</div><div class="stat-label">Beta Cost</div></div>
       </div>
-
     </div>
   </section>
 
-  <!-- ── FOOTER ──────────────────────────────────────────────────────── -->
   <footer>
-    <p>
-      © 2026 Swasthall. Built with ❤️ in Nepal. 
-      <a href="mailto:raunakshah1244@gmail.com">Contact</a> · 
-      <a href="#">Privacy Policy</a>
-    </p>
+    <p>© 2026 Swasthall. Built with ❤️ in Nepal. <a href="mailto:raunakshah1244@gmail.com">Contact</a></p>
   </footer>
 
   <script>
-    // ── COUNTER ANIMATION ──────────────────────────────────────────────
+    // 1. ADD YOUR FORMSPREE ID HERE
+    const FORMSPREE_ID = "https://formspree.io/f/mgoljbbq"; 
+
     function animateCounter(el, target, duration) {
       let start = 0;
       const step = target / (duration / 16);
@@ -685,67 +622,66 @@
     }
 
     setTimeout(() => {
-      animateCounter(document.getElementById('countApplications'), 47, 1200);
+      animateCounter(document.getElementById('countApplications'), 48, 1200);
     }, 1600);
 
-    // ── FORM SUBMISSION ────────────────────────────────────────────────
-    function handleSubmit() {
-      const name  = document.getElementById('fullName').value.trim();
-      const phone = document.getElementById('phone').value.trim();
+    async function handleSubmit() {
+      const name = document.getElementById('fullName').value.trim();
       const email = document.getElementById('email').value.trim();
-      const role  = document.getElementById('role').value;
-      const city  = document.getElementById('city').value.trim();
-
-      // Basic validation
-      if (!name)  { shake('fullName'); return; }
-      if (!phone && !email) { shake('phone'); shake('email'); return; }
-      if (!role)  { shake('role'); return; }
-
-      // Loading state
+      const role = document.getElementById('role').value;
       const btn = document.getElementById('submitBtn');
+
+      // Validation
+      if (!name) { shake('fullName'); return; }
+      if (!email) { shake('email'); return; }
+      if (!role) { shake('role'); return; }
+
       btn.classList.add('loading');
 
-      // Simulate API call — replace with real Supabase insert later
-      setTimeout(() => {
-        const betaId = 'BETA-' + Math.floor(100000 + Math.random() * 900000);
-        document.getElementById('betaId').textContent = betaId;
-        document.getElementById('betaCard').classList.add('submitted');
+      const betaId = 'BETA-' + Math.floor(100000 + Math.random() * 900000);
+      
+      // Prepare data for Formspree
+      const formData = new FormData(document.getElementById('betaForm'));
+      formData.append("Generated_Beta_ID", betaId);
 
-        // Update counter
-        const counter = document.getElementById('countApplications');
-        const current = parseInt(counter.textContent) + 1;
-        counter.textContent = current;
+      try {
+        const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
 
-        // Log to console for now (replace with Supabase later)
-        console.log('Beta signup:', { name, phone, email, role, city, betaId });
-      }, 1400);
+        if (response.ok) {
+          document.getElementById('betaIdDisplay').textContent = betaId;
+          document.getElementById('betaCard').classList.add('submitted');
+          const counter = document.getElementById('countApplications');
+          counter.textContent = parseInt(counter.textContent) + 1;
+        } else {
+          alert("Submission failed. Please check your Formspree ID.");
+        }
+      } catch (error) {
+        alert("Network error. Please try again.");
+      } finally {
+        btn.classList.remove('loading');
+      }
     }
 
     function shake(id) {
       const el = document.getElementById(id);
       el.style.borderColor = '#EF4444';
       el.style.animation = 'shake 0.4s ease';
-      setTimeout(() => {
-        el.style.borderColor = '';
-        el.style.animation = '';
-      }, 800);
+      setTimeout(() => { el.style.borderColor = ''; el.style.animation = ''; }, 800);
     }
-
-    // Enter key support
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') handleSubmit();
-    });
   </script>
 
   <style>
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
-      20%       { transform: translateX(-6px); }
-      40%       { transform: translateX(6px); }
-      60%       { transform: translateX(-4px); }
-      80%       { transform: translateX(4px); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
     }
   </style>
-
 </body>
 </html>
