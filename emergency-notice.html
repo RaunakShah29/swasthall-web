@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Notice — Swasthall</title>
+  <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+         background: #F8FAFC; color: #1F2937; line-height: 1.7; }
+  .header { background: #6366F1; padding: 20px 0; position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 12px rgba(99,102,241,0.3); }
+  .header-inner { max-width: 780px; margin: 0 auto; padding: 0 24px;
+                  display: flex; align-items: center; gap: 12px; }
+  .logo { color: white; font-size: 22px; font-weight: 800; text-decoration: none; }
+  .logo span { opacity: 0.7; font-weight: 400; font-size: 14px; margin-left: 8px; }
+  .container { max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; }
+  .title-card { background: white; border-radius: 20px; padding: 32px;
+                border: 1px solid #E5E7EB; margin-bottom: 32px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+  .title-card h1 { font-size: 28px; font-weight: 800; color: #6366F1; margin-bottom: 8px; }
+  .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .badge { background: #EEF2FF; color: #6366F1; padding: 4px 12px; border-radius: 20px;
+           font-size: 12px; font-weight: 600; }
+  .summary { background: #EEF2FF; border-left: 4px solid #6366F1; border-radius: 0 10px 10px 0;
+             padding: 14px 16px; font-size: 14px; color: #4338CA; }
+  .section { background: white; border-radius: 16px; padding: 24px;
+             border: 1px solid #E5E7EB; margin-bottom: 20px;
+             box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+  .section h2 { font-size: 17px; font-weight: 700; color: #1F2937;
+                margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section h2 .icon { font-size: 18px; }
+  .item { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .bullet { font-weight: 700; font-size: 14px; min-width: 20px; padding-top: 1px; }
+  .bullet.green { color: #059669; }
+  .bullet.red { color: #DC2626; }
+  .bullet.orange { color: #F59E0B; }
+  .bullet.blue { color: #6366F1; }
+  .item-text { font-size: 14px; color: #374151; }
+  .warn-box { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 12px;
+              padding: 16px; margin-bottom: 20px; }
+  .warn-box p { color: #DC2626; font-size: 14px; font-weight: 600; }
+  .emergency-numbers { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+                       gap: 12px; margin-top: 16px; }
+  .num-card { background: #FEF2F2; border-radius: 12px; padding: 14px; text-align: center; }
+  .num-card .num { font-size: 28px; font-weight: 800; color: #DC2626; }
+  .num-card .label { font-size: 12px; color: #6B7280; margin-top: 4px; }
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #6366F1; color: white; padding: 10px 14px; text-align: left; font-size: 13px; }
+  td { padding: 10px 14px; font-size: 13px; color: #374151; border-bottom: 1px solid #F3F4F6; }
+  tr:nth-child(even) td { background: #F8F9FF; }
+  .contact-card { background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 14px; padding: 20px; }
+  .contact-card h3 { color: #059669; font-size: 15px; margin-bottom: 12px; }
+  .contact-card a { color: #059669; text-decoration: none; font-weight: 600; }
+  .footer { text-align: center; margin-top: 40px; padding: 20px;
+            color: #9CA3AF; font-size: 12px; border-top: 1px solid #E5E7EB; }
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px 60px; }
+    .title-card { padding: 20px; }
+    .title-card h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">Swasthall <span>Healthcare Platform</span></a>
+    </div>
+  </header>
+  <div class="container">
+    
+    <div class="title-card">
+    <h1>Emergency Assistance Notice</h1>
+    <div class="meta">
+      <span class="badge">Version 1.0</span>
+      <span class="badge" style="background:#F3F4F6;color:#6B7280">Updated: March 2026</span>
+    </div>
+    <div class="summary">⚠️ CRITICAL: The Swasthall emergency feature is NOT a substitute for emergency services. For life-threatening situations, always call 102 or 100 FIRST.</div>
+  </div>
+
+    <div class="warn-box"><p>🚨 DO NOT open Swasthall first in a life-threatening emergency. Call emergency services directly.</p></div>
+
+    <div class="emergency-numbers" style="margin-bottom:24px">
+      <div class="num-card"><div class="num">102</div><div class="label">Ambulance</div></div>
+      <div class="num-card"><div class="num">100</div><div class="label">Police</div></div>
+      <div class="num-card"><div class="num">101</div><div class="label">Fire Brigade</div></div>
+      <div class="num-card"><div class="num">1145</div><div class="label">Women & Children</div></div>
+    </div>
+
+    <div class="section">
+    <h2><span class="icon">✅</span> What the Emergency Feature Does</h2>
+    <div class="item"><span class="bullet green">✓</span><span class="item-text">Shares your GPS location with your designated emergency contacts</span></div><div class="item"><span class="bullet green">✓</span><span class="item-text">Sends your blood group and allergies to your contacts</span></div><div class="item"><span class="bullet green">✓</span><span class="item-text">Shows nearby hospitals and healthcare facilities</span></div><div class="item"><span class="bullet green">✓</span><span class="item-text">Provides quick-dial buttons for 102, 100, and 101</span></div>
+  </div>
+
+    <div class="section">
+    <h2><span class="icon">❌</span> What It CANNOT Do</h2>
+    <div class="item"><span class="bullet red">✗</span><span class="item-text">Cannot dispatch an ambulance — only calling 102 can do that</span></div><div class="item"><span class="bullet red">✗</span><span class="item-text">Cannot guarantee anyone will respond to the alert</span></div><div class="item"><span class="bullet red">✗</span><span class="item-text">Cannot function without internet connection</span></div><div class="item"><span class="bullet red">✗</span><span class="item-text">Cannot provide emergency medical care</span></div>
+  </div>
+    <div class="footer">
+      <p>Swasthall Pvt. Ltd. &nbsp;|&nbsp; Kathmandu, Nepal &nbsp;|&nbsp; swasthall.com</p>
+      <p style="margin-top:6px">© 2026 Swasthall. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
